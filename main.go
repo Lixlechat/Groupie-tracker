@@ -66,7 +66,7 @@ var Idartist int
 
 //----TRIER ARTISTES DANS L'ORDRE
 
-func sort(artist []Artist) []Artist {
+func sort() {
 	var tab1 []rune
 	var tab2 []rune
 	for j := range artist {
@@ -78,64 +78,63 @@ func sort(artist []Artist) []Artist {
 			}
 		}
 	}
-	return artist
+
 }
 
 //----API LOCATION
 
-func Getlocation() ([]byte, []Location) {
+func Getlocation() {
 	res, err := http.Get(URL + "/relation")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	datas, readErr := ioutil.ReadAll(res.Body)
+	data, readErr := ioutil.ReadAll(res.Body)
 	res.Body.Close()
 	if readErr != nil {
 		log.Fatal(readErr)
 	}
-
-	location := []Location{}
-
-	return datas, location
+	Jsonerror := json.Unmarshal(data, &artistlocations)
+	if Jsonerror != nil {
+		log.Fatal(Jsonerror)
+	}
 }
 
 //----API ARTISTE
 
-func Getartist() ([]byte, []Artist) {
+func Getartist() {
 	res, err := http.Get(URL + "/artists")
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer res.Body.Close()
 
 	data, readErr := ioutil.ReadAll(res.Body)
-
+	res.Body.Close()
 	if readErr != nil {
 		log.Fatal(readErr)
 	}
-
-	artist := []Artist{}
-
-	return data, artist
+	Jsonerror := json.Unmarshal(data, &artist)
+	if Jsonerror != nil {
+		log.Fatal(Jsonerror)
+	}
 }
 
 //-- API DATE //
-func GetDate() ([]byte, []Location) {
+func GetDate() {
 	res, err := http.Get(URL + "/dates")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	datas, readErr := ioutil.ReadAll(res.Body)
+	data, readErr := ioutil.ReadAll(res.Body)
 	res.Body.Close()
 	if readErr != nil {
 		log.Fatal(readErr)
 	}
-
-	location := []Location{}
-
-	return datas, location
+	Jsonerror := json.Unmarshal(data, &artistedates)
+	if Jsonerror != nil {
+		log.Fatal(Jsonerror)
+	}
 }
 
 //-------Filter///
@@ -178,15 +177,6 @@ func mainpage(w http.ResponseWriter, r *http.Request) {
 
 	tmpl := template.Must(template.ParseFiles("index.html"))
 
-	data, artist := Getartist()
-
-	jsonErr := json.Unmarshal(data, &artist)
-	if jsonErr != nil {
-		log.Fatal(jsonErr)
-	}
-
-	artist = sort(artist)
-
 	blockart := Artistsend{Block: artist}
 
 	tmpl.Execute(w, blockart)
@@ -197,7 +187,7 @@ func mainpage(w http.ResponseWriter, r *http.Request) {
 func main() {
 
 	Getartist()
-	//sort()
+	sort()
 	//Getlocation()
 	//GetDate()
 
