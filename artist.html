@@ -1,0 +1,25 @@
+<html>
+    <body>
+
+        <head>
+            <meta charset="utf-8">
+            <link rel="stylesheet" type="text/css" href="/paul/style.css" />
+            <title>Artist</title>
+        </head>
+
+        <section>
+            <a class="top" href="/">retour</a>
+            <div> 
+                <h2>{{.Name}}</h2>
+                <img src="{{.Image}}" alt="{{.Name}}">
+                <p>Members:</p><br>
+                <ul>
+                    {{range .Members}}
+                    <li>{{.}}</li>
+                    {{end}}
+                    <p>CreationDate: {{.CreationDate}}</p>
+                    <p>FirstAlbum: {{.FirstAlbum}}</p>
+                </div>
+        </section>
+    </body>
+</html>

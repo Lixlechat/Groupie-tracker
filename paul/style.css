@@ -1,0 +1,24 @@
+body{
+    background-color: gray;
+}
+
+
+img{
+width: 150px;
+height: 150px;
+border-style: groove;
+border-color: black;
+border-width: 10px;
+}
+
+div{
+    height: 100px;
+    display: inline-block;
+    width: 15%;
+    padding: 0;
+    margin: 0;
+}
+
+.top{
+    position:fixed;
+}

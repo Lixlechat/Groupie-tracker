@@ -1,0 +1,20 @@
+<html>
+    <body>
+        <head>
+            <meta charset="utf-8">
+            <link rel="stylesheet" type="text/css" href="/paul/style.css" />
+            <title>Groupie tracker</title>
+        </head>
+
+        {{range .Block}}
+
+        <a href="/artist/{{.Id}}">
+            <div> 
+                <h2>{{.Name}}</h2>
+                 <img  src="{{.Image}}" alt=""/> 
+                <p>{{.CreationDate}}</p>
+            </div>
+        </a>
+        {{end}}
+    </body>
+</html>
