@@ -35,8 +35,8 @@ type Artist struct {
 }
 
 type Location struct {
-	Id    map[string]int
-	Dates map[string][]string
+	Id        int
+	Locations []string
 }
 
 type Receive struct {
@@ -44,46 +44,46 @@ type Receive struct {
 }
 
 type Artistsend struct {
-	Block []Artist
+	Block []ArtistAll
 }
 
 type Dates struct {
-	Id    map[string]int
-	Dates map[string][]string
+	Id    int
+	Dates []string
 }
 
 var artistall []ArtistAll
 var artist []Artist
-var artistlocations []Location
-var artistedates []Dates
+var artistlocations map[string][]Location
+var artistedates map[string][]Dates
 var Recherche string
 var Idartist int
 
 //----TRIER ARTISTES DANS L'ORDRE
 
-func sort() {
-	var tab1 []rune
-	var tab2 []rune
-	for j := range artist {
-		tab1 = []rune(artist[j].Name)
-		for i := range artist {
-			tab2 = []rune(artist[i].Name)
-			if int(tab1[0]) < int(tab2[0]) {
-				artist[j], artist[i] = artist[i], artist[j]
-			}
-			if int(tab1[0]) == int(tab2[0]) {
-				if int(tab1[1]) < int(tab2[1]) {
-					artist[j], artist[i] = artist[i], artist[j]
-				}
-			}
-		}
-	}
-}
+// func sort() {
+// 	var tab1 []rune
+// 	var tab2 []rune
+// 	for j := range artist {
+// 		tab1 = []rune(artist[j].Name)
+// 		for i := range artist {
+// 			tab2 = []rune(artist[i].Name)
+// 			if int(tab1[0]) < int(tab2[0]) {
+// 				artist[j], artist[i] = artist[i], artist[j]
+// 			}
+// 			if int(tab1[0]) == int(tab2[0]) {
+// 				if int(tab1[1]) < int(tab2[1]) {
+// 					artist[j], artist[i] = artist[i], artist[j]
+// 				}
+// 			}
+// 		}
+// 	}
+// }
 
 //----API LOCATION
 
 func Getlocation() {
-	res, err := http.Get(URL + "/relation")
+	res, err := http.Get(URL + "/locations")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -147,7 +147,7 @@ func Search() {
 	identier, _ := strconv.Atoi(Recherche)
 
 	for i := range artist {
-		if artist[i].Id == identier {
+		if artistall[i].Id == identier {
 			Idartist = i
 		}
 
@@ -164,7 +164,7 @@ func artistpage(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(y)
 	Search()
 
-	tmpl.Execute(w, artist[y-1])
+	tmpl.Execute(w, artistall[y-1])
 }
 
 //----PAGE D'ACCEUIL
@@ -173,9 +173,25 @@ func mainpage(w http.ResponseWriter, r *http.Request) {
 
 	tmpl := template.Must(template.ParseFiles("index.html"))
 
-	blockart := Artistsend{Block: artist}
+	blockart := Artistsend{Block: artistall}
 
 	tmpl.Execute(w, blockart)
+}
+
+func alldata() {
+	lenall := make([]ArtistAll, len(artist))
+	artistall = lenall
+	for i := range artist {
+		artistall[i].Id = artist[i].Id
+		artistall[i].Image = artist[i].Image
+		artistall[i].Name = artist[i].Name
+		artistall[i].Members = artist[i].Members
+		artistall[i].CreationDate = artist[i].CreationDate
+		artistall[i].FirstAlbum = artist[i].FirstAlbum
+		artistall[i].Locations = artistlocations["index"][i].Locations
+		artistall[i].Date = artistedates["index"][i].Dates
+
+	}
 }
 
 //----MAIN
@@ -183,9 +199,10 @@ func mainpage(w http.ResponseWriter, r *http.Request) {
 func main() {
 
 	Getartist()
+	Getlocation()
+	GetDate()
+	alldata()
 	// sort()
-	//Getlocation()
-	//GetDate()
 
 	fs := http.FileServer(http.Dir("paul"))
 	http.Handle("/paul/", http.StripPrefix("/paul/", fs))
