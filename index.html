@@ -7,12 +7,11 @@
         </head>
 
         {{range .Block}}
-
         <a href="/artist/{{.Id}}">
             <div> 
-                <h2>{{.Name}}</h2>
                  <img  src="{{.Image}}" alt=""/> 
                 <p>{{.CreationDate}}</p>
+                
             </div>
         </a>
         {{end}}

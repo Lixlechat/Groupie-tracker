@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"html/template"
 	"io/ioutil"
 	"log"
@@ -31,12 +32,6 @@ type Artist struct {
 	Members      []string
 	CreationDate int
 	FirstAlbum   string
-	// Location     []string
-}
-
-type Profile struct {
-	Artistpro      []Artist
-	Artistlocation []Location
 }
 
 type Location struct {
@@ -76,9 +71,13 @@ func sort() {
 			if int(tab1[0]) < int(tab2[0]) {
 				artist[j], artist[i] = artist[i], artist[j]
 			}
+			if int(tab1[0]) == int(tab2[0]) {
+				if int(tab1[1]) < int(tab2[1]) {
+					artist[j], artist[i] = artist[i], artist[j]
+				}
+			}
 		}
 	}
-
 }
 
 //----API LOCATION
@@ -103,7 +102,7 @@ func Getlocation() {
 //----API ARTISTE
 
 func Getartist() {
-	res, err := http.Get(URL + "/artists")
+	res, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -161,14 +160,11 @@ func artistpage(w http.ResponseWriter, r *http.Request) {
 
 	tmpl := template.Must(template.ParseFiles("artist.html"))
 
-	details := Receive{
-		Id: r.FormValue("Id"),
-	}
-	Recherche = details.Id
-
+	y, _ := strconv.Atoi(r.URL.Path[8:])
+	fmt.Println(y)
 	Search()
 
-	tmpl.Execute(w, artist[Idartist])
+	tmpl.Execute(w, artist[y-1])
 }
 
 //----PAGE D'ACCEUIL
@@ -187,7 +183,7 @@ func mainpage(w http.ResponseWriter, r *http.Request) {
 func main() {
 
 	Getartist()
-	sort()
+	// sort()
 	//Getlocation()
 	//GetDate()
 
