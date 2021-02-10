@@ -58,23 +58,19 @@ var artistlocations map[string][]Location
 var artistedates map[string][]Dates
 var Recherche string
 var Idartist int
+var localisation []int
 
 //----TRIER ARTISTES DANS L'ORDRE
 
-// func sort() {
+// func sort(x int) {
 // 	var tab1 []rune
 // 	var tab2 []rune
-// 	for j := range artist {
-// 		tab1 = []rune(artist[j].Name)
-// 		for i := range artist {
-// 			tab2 = []rune(artist[i].Name)
-// 			if int(tab1[0]) < int(tab2[0]) {
-// 				artist[j], artist[i] = artist[i], artist[j]
-// 			}
-// 			if int(tab1[0]) == int(tab2[0]) {
-// 				if int(tab1[1]) < int(tab2[1]) {
-// 					artist[j], artist[i] = artist[i], artist[j]
-// 				}
+// 	for j := range artistall {
+// 		tab1 = []rune(artistall[j].Name)
+// 		for i := range artistall {
+// 			tab2 = []rune(artistall[i].Name)
+// 			if int(tab1[x]) < int(tab2[x]) {
+// 				artistall[j], artistall[i] = artistall[i], artistall[j]
 // 			}
 // 		}
 // 	}
@@ -194,6 +190,14 @@ func alldata() {
 	}
 }
 
+func pageconcert(w http.ResponseWriter, r *http.Request) {
+
+	tmpl := template.Must(template.ParseFiles("concert.html"))
+
+	y, _ := strconv.Atoi(r.URL.Path[8:])
+	tmpl.Execute(w, localisation[y-1])
+}
+
 //----MAIN
 
 func main() {
@@ -202,12 +206,13 @@ func main() {
 	Getlocation()
 	GetDate()
 	alldata()
-	// sort()
+	//sort()
 
 	fs := http.FileServer(http.Dir("paul"))
 	http.Handle("/paul/", http.StripPrefix("/paul/", fs))
 	http.HandleFunc("/artist/", artistpage)
 	http.HandleFunc("/", mainpage)
+	http.HandleFunc("/concert", pageconcert)
 
 	if err := http.ListenAndServe(":8090", nil); err != nil {
 		log.Fatal(err)
