@@ -62,14 +62,14 @@ var localisation []int
 
 //----TRIER ARTISTES DANS L'ORDRE
 
-// func sort(x int) {
+// func sort() {
 // 	var tab1 []rune
 // 	var tab2 []rune
 // 	for j := range artistall {
 // 		tab1 = []rune(artistall[j].Name)
 // 		for i := range artistall {
 // 			tab2 = []rune(artistall[i].Name)
-// 			if int(tab1[x]) < int(tab2[x]) {
+// 			if int(tab1[0]) < int(tab2[0]) {
 // 				artistall[j], artistall[i] = artistall[i], artistall[j]
 // 			}
 // 		}

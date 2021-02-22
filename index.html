@@ -1,19 +1,29 @@
 <html>
-    <body>
-        <head>
-            <meta charset="utf-8">
-            <link rel="stylesheet" type="text/css" href="/paul/style.css" />
-            <title>Groupie tracker</title>
-        </head>
 
-        {{range .Block}}
-        <a href="/artist/{{.Id}}">
-            <div> 
-                 <img  src="{{.Image}}" alt=""/> 
-                <p>{{.CreationDate}}</p>
-                
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/paul/style.css" />
+    <title>Groupie tracker</title>
+    <h1>Groupie Tracker by Oracio an Paul</h1>
+        <form method="POST" action="/index.html">
+            <div style="width:300px;">
+              <input id="searchNames" type="text" name="searchNames" placeholder="Search an artist!">
+              <input type="submit"><br><br>
+              {{.Num}}{{.ResultNumber}}
             </div>
-        </a>
-        {{end}}
-    </body>
+          </form>
+</head>
+
+<body style="background-color: #f3fdff;">
+    {{range .Block}}
+    <a href="/artist/{{.Id}}">
+        <div>
+            <img src="{{.Image}}" alt="" />
+            <p>{{.CreationDate}}</p>
+
+        </div>
+    </a>
+    {{end}}
+</body>
+
 </html>

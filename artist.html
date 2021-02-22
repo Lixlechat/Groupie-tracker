@@ -1,28 +1,48 @@
 <html>
-    <body>
 
-        <head>
-            <meta charset="utf-8">
-            <link rel="stylesheet" type="text/css" href="/paul/style.css" />
-            <title>Artist</title>
-        </head>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/paul/style.css" />
+    <title>Artist</title>
+</head>
 
-        <section>
-            <a class="top" href="/">retour</a>
-            <div> 
-                <h2>{{.Name}}</h2>
-                <img src="{{.Image}}" alt="{{.Name}}">
-                <p>Members:</p><br>
-                
-                <ul>
-                    {{range .Members}}
-                    <li>{{.}}</li>
-                    {{end}}
-                    <p>CreationDate: {{.CreationDate}}</p>
-                    <p>FirstAlbum: {{.FirstAlbum}}</p>
-                    <p>Location : {{.Locations}}</p>
-                    <p>Date : {{.Date}}</p>
-                </div>
-        </section>
-    </body>
+<body style="background-color: #f3fdff;">
+    <section>
+        <a href="/">retour</a>
+    </section>
+
+    <h2>{{.Name}}</h2>
+    <img src="{{.Image}}" alt="{{.Name}}">
+    <p>Members:</p>
+    <ul>
+        {{range .Members}}
+        <li>{{.}}</li>
+        {{end}}
+    </ul>
+    <p>CreationDate: {{.CreationDate}}</p>
+    <p>FirstAlbum: {{.FirstAlbum}}</p>
+    <table style="width: 30%; border: 1px solid rgb(53, 53, 53);">
+        <tr><br></tr>
+        <tr>
+            <th>
+                <strong>Location</strong>
+            </th>
+            <th>
+                <strong>Date</strong>
+            </th>
+        </tr>
+        {{ range $location, $date := .Schedule}}
+        <tr>
+            <td style="border: 1px solid rgb(53, 53, 53); text-align: center;">
+                <span>{{ $location }}</span>
+            </td>
+            <td style="border: 1px solid rgb(53, 53, 53);">
+                <span>{{ $date }}</span>
+            </td>
+        </tr>
+        {{end}}
+
+    </table>
+</body>
+
 </html>
