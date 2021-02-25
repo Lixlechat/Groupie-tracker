@@ -1,5 +1,6 @@
 package main
 
+// Import des librairies necessaires
 import (
 	"encoding/json"
 	"fmt"
@@ -7,14 +8,17 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"sort"
 	"strconv"
 	"strings"
 )
 
-//----STRUCTURES
-
+// URL Constante contenante le lien de l'api que l'on doit exploiter
 const URL = "https://groupietrackers.herokuapp.com/api"
 
+//------------STRUCTURES------------
+
+// ArtistAll : Contient toutes les caractèristiques d'un artiste qu'on veut montrer dans la page artist.html
 type ArtistAll struct {
 	Id           int
 	Image        string
@@ -24,9 +28,10 @@ type ArtistAll struct {
 	FirstAlbum   string
 	Locations    []string
 	Date         []string
-	Schedule     map[string]string
+	Schedule     map[string]string // map: fonctionne avec la logique des pairs ['key'] : 'value'
 }
 
+// Artist : Contient les caractèristiques de l'artiste qu'on veut montrer dans la page index.html
 type Artist struct {
 	Id           int
 	Image        string
@@ -61,13 +66,18 @@ type Dates struct {
 	Dates []string
 }
 
+type Page struct {
+	Valeur string
+}
+
 var artistall []ArtistAll
 
 var artist []Artist
 var artistlocations map[string][]Location
 var artistedates map[string][]Dates
-
+var sel string
 var Idartist int
+var tmpl = template.Must(template.ParseFiles("contact.html"))
 
 //----TRIER ARTISTES DANS L'ORDRE
 
@@ -170,12 +180,34 @@ func GetDate() {
 // ---- Create Schedule ----//
 func CreateSchedule(y int) {
 	schedule := make(map[string]string)
+
 	locations := artistall[y-1].Locations
 	dates := artistall[y-1].Date
 	for i := range locations {
 		schedule[locations[i]] = dates[i]
 	}
 	artistall[y-1].Schedule = schedule
+}
+
+func contact(w http.ResponseWriter, r *http.Request) {
+
+	p := Page{Valeur: "essaie"}
+	tmplate := tmpl.ExecuteTemplate(w, "contact.html", p)
+	if tmplate != nil {
+		http.Error(w, tmplate.Error(), http.StatusInternalServerError)
+	}
+
+}
+
+func concertPage(w http.ResponseWriter, r *http.Request) {
+
+	tmpl := template.Must(template.ParseFiles("concerts.html"))
+
+	y, _ := strconv.Atoi(r.URL.Path[8:])
+	fmt.Println(y)
+
+	tmpl.Execute(w, artistall[y])
+
 }
 
 //----PAGE ARTISTE PRECIS
@@ -185,15 +217,48 @@ func artistpage(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("artist.html"))
 
 	y, _ := strconv.Atoi(r.URL.Path[8:])
-	fmt.Println(y)
+
 	// Search()
 	CreateSchedule(y)
 	tmpl.Execute(w, artistall[y-1])
 }
 
+func filterArtists(f []string) {
+
+	for i := range f {
+		if f[i] == "all" {
+			return
+		}
+		if f[i] == "creationDate" {
+			sort.Slice(artistall, func(i, j int) bool {
+				return artistall[i].CreationDate < artistall[j].CreationDate
+			})
+			break
+		}
+		// if f[i] == "albumDate" {
+		// 	sort.Slice(artistall, func(i, j int) bool {
+		// 		date1 := []rune(artistall[i].FirstAlbum)
+		// 		date2 := []rune(artistall[j].FirstAlbum)
+		// 		dateModif1, _ := strconv.Atoi(string(date1[len(date1)-4:]))
+		// 		dateModif2, _ := strconv.Atoi(string(date2[len(date1)-4:]))
+		// 		return dateModif1 < dateModif2
+		// 	})
+		// }
+	}
+
+}
+
 //----PAGE D'ACCEUIL
 
 func mainpage(w http.ResponseWriter, r *http.Request) {
+
+	showAll := r.FormValue("all")
+	showByCreationDate := r.FormValue("creationDate")
+	showByAlbumDate := r.FormValue("albumDate")
+	showByNumberMembers := r.FormValue("numberMembers")
+	showByLocationConcerts := r.FormValue("locationConcerts")
+	filters := []string{showAll, showByCreationDate, showByAlbumDate, showByNumberMembers, showByLocationConcerts}
+	filterArtists(filters)
 
 	tmpl := template.Must(template.ParseFiles("index.html"))
 	mMain := " Results Available"
@@ -296,11 +361,13 @@ func main() {
 
 	fs := http.FileServer(http.Dir("paul"))
 	http.Handle("/paul/", http.StripPrefix("/paul/", fs))
+	http.HandleFunc("/concerts/", concertPage)
 	http.HandleFunc("/artist/", artistpage)
+	http.HandleFunc("/contact/", contact)
 	http.HandleFunc("/", mainpage)
 	// http.HandleFunc("/search", Search)
 
-	if err := http.ListenAndServe(":9000", nil); err != nil {
+	if err := http.ListenAndServe(":8090", nil); err != nil {
 		log.Fatal(err)
 	}
 }

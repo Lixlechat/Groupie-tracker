@@ -1,16 +1,36 @@
 <html>
 
 <head>
+    <style>
+        #outer{
+    width:100%;
+    text-align: center;
+}
+.inner{
+    display: inline-block;
+    border: none;
+    outline: none;
+    padding: 12px 16px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+.inner.active{
+    background-color: #666;
+    color: white;
+}
+        
+    </style>
+
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="/paul/style.css" />
     <title>Groupie tracker</title>
     <h1>Groupie Tracker by Oracio an Paul</h1>
-        <form method="POST" action="/index.html">
-            <div style="width:300px;">
+        <form method="POST" action="/">
+            <div style="width:800px;" class="outer" id="myFilters">
               <input id="searchNames" type="text" name="searchNames" placeholder="Search an artist!">
               <input type="submit"><br><br>
-              {{.Num}}{{.ResultNumber}}
             </div>
+              {{.Num}}{{.ResultNumber}}
           </form>
 </head>
 
