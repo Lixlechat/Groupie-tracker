@@ -165,6 +165,33 @@ func jsonranger() {
 
 }
 
+func filterM(filterMembers string, Members []string) bool {
+	IFM, _ := strconv.Atoi(filterMembers)
+	if len(Members) == IFM {
+		return true
+	}
+	return false
+}
+
+func filtreA(filtreAlbum, Artistalbum string) bool {
+	PlageAlbum, _ := strconv.Atoi(filtreAlbum)
+	Datestring := Artistalbum
+	date, _ := strconv.Atoi(Datestring)
+
+	if date == PlageAlbum {
+		return true
+	}
+	return false
+}
+
+func FiltrCreation(creationDate int, filtreCreation string) bool {
+	PlageCreation, _ := strconv.Atoi(filtreCreation)
+	if creationDate == PlageCreation {
+		return true
+	}
+	return false
+}
+
 //----MAIN
 
 func main() {

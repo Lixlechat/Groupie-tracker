@@ -30,7 +30,7 @@
 
       {{$DT := .Data}}
       {{range $ID,$v := $DT.Artist}}
-      <option data-id="{{(index $DT.Artist $ID).Id}}" value="{{(index $DT.Artist $ID).Name}} ">
+      <option data-id="{{(index $DT.Artist $ID).Id}}" value="{{(index $DT.Artist $ID).Name}} | Artiste-Group ">
 
         {{range (index $DT.Artist $ID).Members }}
       <option data-id="{{(index $DT.Artist $ID).Id}}" value="{{.}}"></option>
