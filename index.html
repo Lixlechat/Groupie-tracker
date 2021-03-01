@@ -1,49 +1,132 @@
-<html>
+<!DOCTYPE html>
+<html lang="fr">
 
 <head>
-    <style>
-        #outer{
-    width:100%;
-    text-align: center;
-}
-.inner{
-    display: inline-block;
-    border: none;
-    outline: none;
-    padding: 12px 16px;
-    background-color: #f1f1f1;
-    cursor: pointer;
-}
-.inner.active{
-    background-color: #666;
-    color: white;
-}
-        
-    </style>
-
-    <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="/paul/style.css" />
-    <title>Groupie tracker</title>
-    <h1>Groupie Tracker by Oracio an Paul</h1>
-        <form method="POST" action="/">
-            <div style="width:800px;" class="outer" id="myFilters">
-              <input id="searchNames" type="text" name="searchNames" placeholder="Search an artist!">
-              <input type="submit"><br><br>
-            </div>
-              {{.Num}}{{.ResultNumber}}
-          </form>
+  <title>Groupie Tracker</title>
+  <link rel="stylesheet" href="/paul/styleex.css">
+  <script  src="paul/main.js"></script>
 </head>
+<a id="haut"></a>
+<header>
 
-<body style="background-color: #f3fdff;">
-    {{range .Block}}
-    <a href="/artist/{{.Id}}">
-        <div>
-            <img src="{{.Image}}" alt="" />
-            <p>{{.CreationDate}}</p>
 
-        </div>
-    </a>
-    {{end}}
+  <!-- Menu de navigation du site -->
+  <nav class="navbar">
+    <div class="neons">
+      <a href="index.html" class="neonitem">Accueil</a>
+      <a href="#programme" class="neonitem">les Concerts</a>
+      <a href="https://d2qr63i3uw2hd1.cloudfront.net/photos/slide/540/ratatouille.png" class="neonitem">Bouton swag</a>
+      <a href="/contact/" class="neonitem">Contact</a>
+    </div>
+  </nav>
+
+</header>
+
+<body>
+  <div class="form-search">
+    <input onsubmit="event.preventDefault();" name="search" class="design-search" id="search" type="text" list="searchs"
+      placeholder="recherche..." autofocus requiered />
+    <datalist id="searchs" name="searchs">
+
+      {{$DT := .Data}}
+      {{range $ID,$v := $DT.Artist}}
+      <option data-id="{{(index $DT.Artist $ID).Id}}" value="{{(index $DT.Artist $ID).Name}} ">
+
+        {{range (index $DT.Artist $ID).Members }}
+      <option data-id="{{(index $DT.Artist $ID).Id}}" value="{{.}}"></option>
+      {{end}}
+      <option data-id="{{(index $DT.Artist $ID).Id}}" value="{{(index $DT.Artist $ID).FirstAlbum}} "></option>
+      <option data-id="{{(index $DT.Artist $ID).Id}}" value="{{(index $DT.Artist $ID).CreationDate}} "></option>
+      {{end}}
+
+      {{range $ID,$v := $DT.Location.Index}}
+      {{range (index $DT.Location.Index $ID).Location}}
+      <option data-id="{{(index $DT.Artist $ID).Id}}" value="{{.}} "></option>
+      {{end}}
+      {{end}}
+
+      {{range $ID,$v := $DT.Location.Index}}
+      {{range (index $DT.Location.Index $ID).Location}}
+      <option data-id="{{(index $DT.Artist $ID).Id}}" value="{{.}} "></option>
+      {{end}}
+      {{end}}
+    </datalist>
+
+    <button class="button" onclick="barrederecherche();" type="button">ALLEZZZZZZ!</button>
+  </div>
+  {{$api:=.Data}}
+  {{range $ID,$v := $api.Artist}}
+  <a href="/artist/{{(index $api.Artist $ID).Id}}">
+
+    <div class=zoom>
+      <div class=image>
+        <img src="{{(index $api.Artist $ID).Image}}" alt="" />
+      </div>
+    </div>
+
+  </a>
+  {{end}}
+  <div><a id="cRetour" class="cInvisible" href="#haut"></a></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      window.onscroll = function (ev) {
+        document.getElementById("cRetour").className = (window.pageYOffset > 100) ? "cVisible" : "cInvisible";
+      };
+    });
+  </script>
+
+  <script>
+    // Par Oznog, trucsweg.com
+    // http://trucsweb.com/tutoriels/javascript/defilement_doux
+    document.addEventListener('DOMContentLoaded', function () {
+      var aLiens = document.querySelectorAll('a[href*="#"]');
+      for (var i = 0, len = aLiens.length; i < len; i++) {
+        aLiens[i].onclick = function () {
+          if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+            var target = this.getAttribute("href").slice(1);
+            if (target.length) {
+              scrollTo(document.getElementById(target).offsetTop, 750);
+              return false;
+            }
+          }
+        };
+      }
+    });
+    //Exemple de : Forestrf
+    // http://jsfiddle.net/forestrf/tPQSv/2/
+    function scrollTo(element, duration) {
+      var e = document.documentElement;
+      if (e.scrollTop === 0) {
+        var t = e.scrollTop;
+        ++e.scrollTop;
+        e = t + 1 === e.scrollTop-- ? e : document.body;
+      }
+      scrollToC(e, e.scrollTop, element, duration);
+    }
+
+    function scrollToC(element, from, to, duration) {
+      if (duration < 0) return;
+      if (typeof from === "object") from = from.offsetTop;
+      if (typeof to === "object") to = to.offsetTop;
+      scrollToX(element, from, to, 0, 1 / duration, 20, easeOutCuaic);
+    }
+
+    function scrollToX(element, x1, x2, t, v, step, operacion) {
+      if (t < 0 || t > 1 || v <= 0) return;
+      element.scrollTop = x1 - (x1 - x2) * operacion(t);
+      t += v * step;
+      setTimeout(function () {
+        scrollToX(element, x1, x2, t, v, step, operacion);
+      }, step);
+    }
+
+    function easeOutCuaic(t) {
+      t--;
+      return t * t * t + 1;
+    }
+  </script>
+  
 </body>
 
 </html>

@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=RocknRoll+One&display=swap');
+
+body {
+    background-color: black;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding:0;
+    color: white;
+    overflow-x: hidden;
+    margin: 1%;
+    font-size: larger;
+    align-items: center;
+    background-image: url('data:image/svg+xml,%3Csvg width="42" height="44" viewBox="0 0 42 44" xmlns="http://www.w3.org/2000/svg"%3E%3Cg id="Page-1" fill="none" fill-rule="evenodd"%3E%3Cg id="brick-wall" fill="%239C92AC" fill-opacity="0.4"%3E%3Cpath d="M0 0h42v44H0V0zm1 1h40v20H1V1zM0 23h20v20H0V23zm22 0h20v20H22V23z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+}
+ 
+.neonitem {
+    text-align: center;
+     font-weight: bold;
+     font-family: 'RocknRoll One', sans-serif;
+    font-size: 200%;
+    -webkit-animation: glow 2s ease-in-out infinite alternate;
+    -moz-animation: glow 2s ease-in-out infinite alternate;
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  
+  @-webkit-keyframes glow {
+       from {
+        color: rgb(0, 0, 0);
+      text-shadow: 0 0 10px #00fff2, 0 0 20px #00fff2, 0 0 30px #00fff2, 0 0 40px #00fff2, 0 0 50px #00fff2, 0 0 50px #00fff2, 0 0 50px #00fff2, 0 0 50px #00fff2;
+    }
+    
+    to {
+       color: white;
+      text-shadow: 0 0 20px #00fff2, 0 0 30px #00fff2, 0 0 40px #00fff2, 0 0 50px #00fff2, 0 0 50px #00fff2, 0 0 50px #00fff2, 0 0 50px #00fff2, 0 1 50px #00fff2;
+    }
+  }
+
+body img{
+    margin: 1%;
+    height: 400px;
+    width: 400px;
+    background-size: 400px;
+}
+
+body ul{
+    list-style: georgian inside url('/paul/microphone.svg');
+}
+
+body table{
+    width: 30%;
+    font-size: larger;
+    position: relative; bottom: 60%; left: 50%;
+    border: 8px solid rgb(255, 255, 255);
+}
+
+body td{
+    /* border: 5px solid rgb(255, 255, 255); */
+    text-align: center;
+}
+
+body a:link{
+    display:inline-block;
+    padding:0.35em 1.2em;
+    position: relative; left: 46%; top: 10%;
+    border:0.1em solid #FFFFFF;
+    margin:0 0.3em 0.3em 0;
+    border-radius:0.12em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    color:#FFFFFF;
+    text-align:center;
+    transition: all 0.2s;
+}
+
+body a:visited{
+    color: white;
+}
+
+body a:hover{
+    color:#ffffff;
+    background-color:grey;
+}
+
+@media all and (max-width:30em){
+     a.button{
+    display:block;
+    margin:0.4em auto;
+    }
+}

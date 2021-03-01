@@ -2,50 +2,61 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="/paul/style.css" />
+    <link rel="stylesheet" type="text/css" href="/paul/stylist.css" />
     <title>Artist</title>
 </head>
 
-<body style="background-color: #f3fdff;">
-    <section>
-        <a href="/">retour</a>
-    </section>
-
-    <h2>{{.Name}}</h2>
-    <img src="{{.Image}}" alt="{{.Name}}">
-    <p>Members:</p>
+<body>
+    {{$api:=.Data}}
+    <div class="neonitem">
+    <h2>{{(index $api.Artist 0).Name}}</h2>
+    </div>
+    <img src="{{(index $api.Artist 0).Image}}" alt="{{(index $api.Artist 0).Name}}">
+    <p>Membres du groupe :</p>
     <ul>
-        {{range .Members}}
+        {{range(index $api.Artist 0).Members}}
         <li>{{.}}</li>
         {{end}}
     </ul>
-    <p>CreationDate: {{.CreationDate}}</p>
-    <p>FirstAlbum: {{.FirstAlbum}}</p>
-    <table style="width: 30%; border: 1px solid rgb(53, 53, 53);">
+    <p>Premier Titre : {{(index $api.Artist 0).CreationDate}}</p>
+    <p>Premier Album: {{(index $api.Artist 0).FirstAlbum}}</p>
+        <a href="/" class="button">Retour</a>
+    <table>
         <tr><br></tr>
         <tr>
             <th>
-                <strong>Location</strong>
+                <strong>Lieux</strong>
             </th>
+            {{range $I,$Loc:= (index $api.Location)}} 
             <th>
                 <strong>Date</strong>
             </th>
         </tr>
-        {{ range $location, $date := .Schedule}}
+        
         <tr>
-            <td style="border: 1px solid rgb(53, 53, 53); text-align: center;">
-                <span>{{ $location }}</span>
+            {{range $I,$Loc:= (index $api.Location)}} 
+            {{range index ( index $api.Relation) $Loc}}
+            <td>
+                {{$Loc}}
+              
             </td>
-            <td style="border: 1px solid rgb(53, 53, 53);">
-                <span>{{ $date }}</span>
+            <td>
+                {{.}}
+                
             </td>
+            {{end}}
+            {{end}}
         </tr>
         {{end}}
 
     </table>
-
     <form method="POST">
-        <select id="select" name="select"></select>
+        <select id="select" name="select"> 
+        {{range (index $api.Location)}}  
+        <option>{{.}}</option>
+        {{end}}  
+        </select>
+        
         <input type="submit" value="send" id="send"><br>
     </form>
     <div style="width: 100%">
@@ -53,17 +64,14 @@
         </iframe>
         <a href="https://www.maps.ie/route-planner.htm">Google Route Planner</a>
     </div>
-    <!-- <p id="demo"></p> -->
     <script>
         a = "The full URL of this page is:<br>" + window.location.href;
         function myFunction() {
             var select = document.getElementById("select");
-            res = {{.Locations }};
+            res = {{(index $api.Location)}};
         select.innerHTML = res.map(function (option) {
             return "<option>" + option + "</option>";
-        }).join("");
-          
-          }
+        }).join("");}
         myFunction()
         window.onload = function () {
             localStorage.setItem("storageName", res);
@@ -82,7 +90,7 @@
             });
         });
     </script>
-
+    
 </body>
 
 </html>
