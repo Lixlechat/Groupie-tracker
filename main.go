@@ -89,6 +89,15 @@ func UnmarshalJason(url string, api interface{}) {
 	}
 
 }
+func Erreur404(w http.ResponseWriter, r *http.Request) {
+	var tmpl = template.Must(template.ParseFiles("Erreur.html"))
+	p := Page{Valeur: "essaie"}
+	tmplate := tmpl.ExecuteTemplate(w, "Erreur.html", p)
+	if tmplate != nil {
+		http.Error(w, tmplate.Error(), http.StatusInternalServerError)
+	}
+
+}
 
 func contact(w http.ResponseWriter, r *http.Request) {
 	var tmpl = template.Must(template.ParseFiles("contact.html"))
@@ -203,6 +212,7 @@ func main() {
 	http.HandleFunc("/artist/", artistpage)
 	http.HandleFunc("/contact/", contact)
 	http.HandleFunc("/", mainpage)
+	http.HandleFunc("/error/", Erreur404)
 	// http.HandleFunc("/search", Search)
 
 	if err := http.ListenAndServe(":8010", nil); err != nil {

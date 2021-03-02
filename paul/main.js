@@ -6,12 +6,14 @@ function barrederecherche() {
         var VTransformeddata = Rtransformer(VData[i].value.toLowerCase());
         if(VData[i].value.toLowerCase()== VImput.toLowerCase() || VTransformeddata == VImput.toLowerCase()) {
             var ID = VData[i].dataset.id;
-            document.location.replace("http://localhost:8010/artist/"+ID);
+            window.location.href="/artist/"+ID;
             console.log(ID)
             return;
         }
     }
 
+    // document.location.href="http://localhost:8010/error/";
+    
 }
 console.log("fichierjscharger")
 
