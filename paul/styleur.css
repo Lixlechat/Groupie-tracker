@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=RocknRoll+One&display=swap');
+
+body {
+    background-color: black;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding:0;
+    overflow-x: hidden;
+    background-image: url('data:image/svg+xml,%3Csvg width="42" height="44" viewBox="0 0 42 44" xmlns="http://www.w3.org/2000/svg"%3E%3Cg id="Page-1" fill="none" fill-rule="evenodd"%3E%3Cg id="brick-wall" fill="%239C92AC" fill-opacity="0.4"%3E%3Cpath d="M0 0h42v44H0V0zm1 1h40v20H1V1zM0 23h20v20H0V23zm22 0h20v20H22V23z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+ }
+
+ h1 {
+    font-size: 40px;
+    color: white;
+    font-family: 'RocknRoll One', sans-serif;
+    margin-left: 27%;
+}
+
+.neonitem {
+    font-size: 40px;
+    text-align: center;
+     font-weight: bold;
+    -webkit-animation: glow 2s ease-in-out infinite alternate;
+    -moz-animation: glow 2s ease-in-out infinite alternate;
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  
+  @-webkit-keyframes glow {
+       from {
+        color: rgb(0, 0, 0);
+      text-shadow: 0 0 10px #ffee00, 0 0 20px #ffee00, 0 0 30px #ffee00, 0 0 40px #ffee00, 0 0 50px #ffee00, 0 0 50px #ffee00, 0 0 50px #ffee00, 0 0 50px #ffee00;
+    }
+    
+    to {
+       color: white;
+      text-shadow: 0 0 20px #ffee00, 0 0 30px #ffee00, 0 0 40px #ffee00, 0 0 50px #ffee00, 0 0 50px #ffee00, 0 0 50px #ffee00, 0 0 50px #ffee00, 0 1 50px #ffee00;
+    }
+  }
+
+p{
+    color: white;
+    font-family: 'RocknRoll One', sans-serif;
+    font-size: 27px;
+    margin: 3%;
+}
+
+img{
+    margin-left: 33%;
+    height: 400px;
+    width: auto;
+    background-size: 400px;
+}
+
+body a:link{
+    display:inline-block;
+    padding:0.35em 1.2em;
+    border:0.1em solid #FFFFFF;
+    border-radius:0.12em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    color:#FFFFFF;
+    font-size: 21px;
+    text-align:center;
+    transition: all 0.2s;
+}
+
+body a:visited{
+    color: white;
+}
+
+body a:hover{
+    color:#ffffff;
+    background-color:grey;
+}
+
+.button{
+    margin-left: 49%;
+    align-items: center;
+}

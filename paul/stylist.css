@@ -2,18 +2,25 @@
 
 body {
     background-color: black;
+    background-image: url('data:image/svg+xml,%3Csvg width="42" height="44" viewBox="0 0 42 44" xmlns="http://www.w3.org/2000/svg"%3E%3Cg id="Page-1" fill="none" fill-rule="evenodd"%3E%3Cg id="brick-wall" fill="%239C92AC" fill-opacity="0.4"%3E%3Cpath d="M0 0h42v44H0V0zm1 1h40v20H1V1zM0 23h20v20H0V23zm22 0h20v20H22V23z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding:0;
     color: white;
     overflow-x: hidden;
+
+    
+    height:100%;
     margin: 1%;
+    padding:0;
+    
     font-size: larger;
     align-items: center;
-    background-image: url('data:image/svg+xml,%3Csvg width="42" height="44" viewBox="0 0 42 44" xmlns="http://www.w3.org/2000/svg"%3E%3Cg id="Page-1" fill="none" fill-rule="evenodd"%3E%3Cg id="brick-wall" fill="%239C92AC" fill-opacity="0.4"%3E%3Cpath d="M0 0h42v44H0V0zm1 1h40v20H1V1zM0 23h20v20H0V23zm22 0h20v20H22V23z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
 }
- 
+
+
+/* titre: nom de l'artiste */
 .neonitem {
+
+
     text-align: center;
      font-weight: bold;
      font-family: 'RocknRoll One', sans-serif;
@@ -22,42 +29,34 @@ body {
     -moz-animation: glow 2s ease-in-out infinite alternate;
     animation: glow 2s ease-in-out infinite alternate;
   }
-  
-  @-webkit-keyframes glow {
-       from {
-        color: rgb(0, 0, 0);
-      text-shadow: 0 0 10px #00fff2, 0 0 20px #00fff2, 0 0 30px #00fff2, 0 0 40px #00fff2, 0 0 50px #00fff2, 0 0 50px #00fff2, 0 0 50px #00fff2, 0 0 50px #00fff2;
-    }
-    
-    to {
-       color: white;
-      text-shadow: 0 0 20px #00fff2, 0 0 30px #00fff2, 0 0 40px #00fff2, 0 0 50px #00fff2, 0 0 50px #00fff2, 0 0 50px #00fff2, 0 0 50px #00fff2, 0 1 50px #00fff2;
-    }
-  }
 
+
+/* logo */
 body img{
-    margin: 1%;
-    height: 400px;
-    width: 400px;
+    height: 450px;
+    width: 450px;
     background-size: 400px;
 }
 
-body ul{
-    list-style: georgian inside url('/paul/microphone.svg');
+
+/* tableau date/lieu */
+.snk{
+    height: 22%;
+    width: 13%;
+
+    position: absolute;
+    right: 150px;
+    top:250px;
+}
+.tableau{
+    border: 1px solid;
+}
+th{
+    background-color: #333;
+    color: #fff;
 }
 
-body table{
-    width: 30%;
-    font-size: larger;
-    position: relative; bottom: 60%; left: 50%;
-    border: 8px solid rgb(255, 255, 255);
-}
-
-body td{
-    /* border: 5px solid rgb(255, 255, 255); */
-    text-align: center;
-}
-
+/* bouton retour/itineraire */
 body a:link{
     display:inline-block;
     padding:0.35em 1.2em;
@@ -72,20 +71,176 @@ body a:link{
     color:#FFFFFF;
     text-align:center;
     transition: all 0.2s;
-}
-
+} 
 body a:visited{
     color: white;
 }
-
 body a:hover{
     color:#ffffff;
     background-color:grey;
 }
 
+.button1{
+  position: relative; bottom: 18em;
+  margin-left: 28%;
+  width:20%;
+}
+
+.button2{
+  position: relative; bottom: 8em;
+  margin-left: 39%;
+  width:15%;
+}
+
+/* map et formulaire */
+.map{
+    position: absolute;
+    left: 700px;
+    bottom: 400px;
+    width: 35%;
+    height: 40%;
+}
+
+#iframelocation{
+  width: auto;
+  height: auto;
+}
+.formulaireville{
+    width: 13%;
+    height: 3%;
+    margin-left: 60%;
+    position: absolute; bottom:35%
+}
+
+
 @media all and (max-width:30em){
-     a.button{
-    display:block;
-    margin:0.4em auto;
+    a.button{
+        display:block;
+        margin:0.4em auto;
     }
 }
+
+  
+  @-webkit-keyframes glow {
+       from {
+        color: rgb(0, 0, 0);
+      text-shadow: 0 0 10px #00fff2, 0 0 20px #00fff2, 0 0 30px #00fff2, 0 0 40px #00fff2, 0 0 50px #00fff2, 0 0 50px #00fff2, 0 0 50px #00fff2, 0 0 50px #00fff2;
+    }
+    
+    to {
+       color: white;
+      text-shadow: 0 0 20px #00fff2, 0 0 30px #00fff2, 0 0 40px #00fff2, 0 0 50px #00fff2, 0 0 50px #00fff2, 0 0 50px #00fff2, 0 0 50px #00fff2, 0 1 50px #00fff2;
+    }
+  }
+  
+  .detailArtist{
+    position: relative;
+    top: 10px;
+    left:60px;
+  }
+  /* BOUTON */
+  .liste{
+    width:17%;
+    display:flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  
+  button{
+    display:inline-block;
+    font-family: 'Segoe UI';
+    font-size: 15px;
+    padding:0.35em 1.2em;
+    border:0.1em solid #FFFFFF;
+    margin:0 0.3em 0.3em 0;
+    border-radius:0.12em;
+    background-color: rgba(255, 255, 255, 0);
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    color:#FFFFFF;
+    text-align:center;
+    transition: all 0.2s;
+  }
+
+  button:hover{
+    color:#ffffff;
+    background-color:grey;
+  }
+  /* BLOCK */
+  .madiv{
+    width:600px;
+    height: 300px;
+  }
+  
+  /* triangle/rectangle 1 */
+  .triangle1 {
+    width: 0;
+    height: 0;
+    border-left: 60px solid transparent;
+    border-right: 60px solid transparent;
+    border-bottom: 30px solid rgba(39, 38, 38, 0.932);
+  }
+  
+  .rectangle1{
+    width: 600px;
+    height: 300px;
+    border-radius: 0 30px 30px 30px;
+    text-align: center;
+    background-color: rgba(39, 38, 38, 0.932);
+  }
+
+  .rectangle1 li{
+    list-style: georgian inside url('/paul/microphone.svg');
+  }
+  
+  /* triangle/rectangle 2 */
+  .triangle2 {
+    margin-left:17.5%;
+    width: 0;
+    height: 0;
+    border-left: 60px solid transparent;
+    border-right: 60px solid transparent;
+    border-bottom: 30px solid rgba(39, 38, 38, 0.932);
+  }
+  .rectangle2{
+    width: 600px;
+    height: 300px;
+    border-radius:30px;
+    text-align: center;
+    background-color: rgba(39, 38, 38, 0.932);
+  }
+
+  .forme2{
+    position: relative; bottom: 1em;
+  }
+  
+  /* triangle/rectangle 3 */
+  .triangle3 {
+    margin-left:34%;
+    width: 0;
+    height: 0;
+    border-left: 60px solid transparent;
+    border-right: 60px solid transparent;
+    border-bottom: 30px solid rgba(39, 38, 38, 0.932);
+  }
+  .rectangle3{
+    width: 600px;
+    height: 300px;
+    border-radius:30px;
+    text-align: center;
+    background-color: rgba(39, 38, 38, 0.932);
+  }
+  
+  .forme3{
+    position: relative; bottom: 2em;
+  }
+  
+  
+  .bande{
+    background-color: black;
+    
+    height: 20px;
+    width:1px;
+  }

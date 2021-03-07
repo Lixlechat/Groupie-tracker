@@ -7,90 +7,194 @@
 </head>
 
 <body>
-    {{$api:=.Data}}
-    <div class="neonitem">
-    <h2>{{(index $api.Artist 0).Name}}</h2>
-    </div>
-    <img src="{{(index $api.Artist 0).Image}}" alt="{{(index $api.Artist 0).Name}}">
-    <p>Membres du groupe :</p>
-    <ul>
-        {{range(index $api.Artist 0).Members}}
-        <li>{{.}}</li>
-        {{end}}
-    </ul>
-    <p>Premier Titre : {{(index $api.Artist 0).CreationDate}}</p>
-    <p>Premier Album: {{(index $api.Artist 0).FirstAlbum}}</p>
-        <a href="/" class="button">Retour</a>
-    <table>
-        <tr><br></tr>
-        <tr>
-            <th>
-                <strong>Lieux</strong>
-            </th>
-            {{range $I,$Loc:= (index $api.Location)}} 
-            <th>
-                <strong>Date</strong>
-            </th>
-        </tr>
-        
-        <tr>
-            {{range $I,$Loc:= (index $api.Location)}} 
-            {{range index ( index $api.Relation) $Loc}}
-            <td>
-                {{$Loc}}
-              
-            </td>
-            <td>
-                {{.}}
-                
-            </td>
-            {{end}}
-            {{end}}
-        </tr>
-        {{end}}
+    <div class="complet">
+        {{$api:=.Data}}
+        <!-- titre -->
+        <div class="neonitem">
+            <h2>{{(index $api.Artist 0).Name}}</h2>
+        </div>
+        <img src="{{(index $api.Artist 0).Image}}" alt="{{(index $api.Artist 0).Name}}">
 
-    </table>
-    <form method="POST">
-        <select id="select" name="select"> 
-        {{range (index $api.Location)}}  
-        <option>{{.}}</option>
-        {{end}}  
-        </select>
-        
-        <input type="submit" value="send" id="send"><br>
-    </form>
-    <div style="width: 100%">
-        <iframe scrolling="no" marginheight="0" marginwidth="0" id="iframelocation" style="width: 100%; height: 400px">
-        </iframe>
-        <a href="https://www.maps.ie/route-planner.htm">Google Route Planner</a>
-    </div>
-    <script>
-        a = "The full URL of this page is:<br>" + window.location.href;
-        function myFunction() {
-            var select = document.getElementById("select");
-            res = {{(index $api.Location)}};
-        select.innerHTML = res.map(function (option) {
-            return "<option>" + option + "</option>";
-        }).join("");}
-        myFunction()
-        window.onload = function () {
-            localStorage.setItem("storageName", res);
+        <!-- detail de l'artist -->
+        <div class="detailArtist">
+            <div class="liste">
+                <div class="bouton1">
+                    <button onclick="maFonction1()">Membre du groupe</button>
+                </div>
 
-        }
-        document.addEventListener('DOMContentLoaded', () => {
-            var location = document.getElementById('select').value;
-            console.log(location);
-            document.getElementById("iframelocation").setAttribute("src", "https://maps.google.com/maps?q=" + location + "&z=7&output=embed")
-            document.getElementById('send').addEventListener('click', function (event) {
-                event.preventDefault()
-                // Quand je clique, je récupère la valeur dans le select
+                <div class="bouton2">
+                    <button onclick="maFonction2()">Premier titre</button>
+                </div>
+
+                <div class="bouton3">
+                    <button onclick="maFonction3()">Premier album</button>
+                </div>
+            </div>
+            <!-- ------------ -->
+            <div class="madiv">
+
+                <div id="maDIV1" style="display:block;">
+                    <div class="forme1">
+                        <div class="triangle1">
+                        </div>
+                        <div class="rectangle1">
+                            {{range(index $api.Artist 0).Members}}
+                            <li>{{.}}</li>
+                            {{end}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bande"></div>
+
+                <div id="maDIV2" style="display:none;">
+                    <div class="forme2">
+                        <div class="triangle2">
+                        </div>
+                        <div class="rectangle2">
+                            Premier Titre Sorti en : {{(index $api.Artist 0).CreationDate}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bande"></div>
+
+                <div id="maDIV3" style="display:none;">
+                    <div class="forme3">
+                        <div class="triangle3">
+                        </div>
+                        <div class="rectangle3">
+                            Premier Album Parut le : {{(index $api.Artist 0).FirstAlbum}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- ------------ -->
+
+            <script>
+                function maFonction1() {
+                    var div = document.getElementById("maDIV1");
+                    if (div.style.display === "none") {
+                        div.style.display = "block";
+                        document.getElementById("maDIV2").style.display = "none";
+                        document.getElementById("maDIV3").style.display = "none";
+                    } else {
+                        div.style.display = "none";
+                    }
+                }
+
+                function maFonction2() {
+                    var div = document.getElementById("maDIV2");
+                    if (div.style.display === "none") {
+                        div.style.display = "block";
+                        document.getElementById("maDIV1").style.display = "none";
+                        document.getElementById("maDIV3").style.display = "none";
+                    } else {
+                        div.style.display = "none";
+                    }
+                }
+
+                function maFonction3() {
+                    var div = document.getElementById("maDIV3");
+                    if (div.style.display === "none") {
+                        div.style.display = "block";
+                        document.getElementById("maDIV1").style.display = "none";
+                        document.getElementById("maDIV2").style.display = "none";
+                    } else {
+                        div.style.display = "none";
+                    }
+                }
+            </script>
+        </div>
+
+
+        <!-- choix du lieux de concert -->
+        <div class="formulaireville">
+            <form method="POST">
+                <select id="select" name="select"> 
+                        {{range (index $api.Location)}}  
+                        <option>{{.}}</option>
+                        {{end}}  
+                    </select>
+                <input type="submit" value="send" id="send"><br>
+            </form>
+        </div>
+
+        <!-- tableau date et lieu de concert -->
+        <div class="snk">
+            <table class="tableau">
+                <tr>
+                    <th>
+                        <strong>Lieux</strong>
+                    </th>
+                    <th>
+                        <strong>Date</strong>
+                    </th>
+                </tr>
+
+                {{range $I,$Loc:= (index $api.Location)}} {{range index ( index $api.Relation) $Loc}}
+
+                <tr>
+                    <td>
+                        <span>{{$Loc}}</span>
+                    </td>
+                    <td>
+                        <span>{{.}}</span>
+                    </td>
+                </tr>
+                {{end}} {{end}}
+            </table>
+        </div>
+
+        <!-- map -->
+        <div class="map">
+            <iframe scrolling="no" marginheight="0" marginwidth="0" id="iframelocation" style="width: 100%; height: 400px"></iframe>
+        </div>
+
+
+        <div class="button1">
+            <a href="https://www.maps.ie/route-planner.htm" target="_blank">Planifier mon itinéraire</a>
+        </div>
+        <div class="button2">
+            <a href="/" class="button">Retour à l'Accueil</a>
+        </div>
+
+
+
+
+        <!-- script -->
+        <script>
+            a = "The full URL of this page is:<br>" + window.location.href;
+
+            function myFunction() {
+                var select = document.getElementById("select");
+                res = {{(index $api.Location)}};
+                select.innerHTML = res.map(function(option) {
+                    return "<option>" + option + "</option>";
+                }).join("");
+            }
+            myFunction()
+            window.onload = function() {
+                localStorage.setItem("storageName", res);
+
+            }
+            document.addEventListener('DOMContentLoaded', () => {
                 var location = document.getElementById('select').value;
                 console.log(location);
-                document.getElementById("iframelocation").setAttribute("src", "https://maps.google.com/maps?q=" + location + "&z=7&output=embed")
+                document.getElementById("iframelocation").setAttribute("src", "https://maps.google.com/maps?q=" + "" + "&z=7&output=embed")
+                document.getElementById('send').addEventListener('click', function(event) {
+                    event.preventDefault()
+                        // Quand je clique, je récupère la valeur dans le select
+                    var location = document.getElementById('select').value;
+                    console.log(location);
+                    document.getElementById("iframelocation").setAttribute("src", "https://maps.google.com/maps?q=" + location + "&z=7&output=embed")
+                });
             });
-        });
-    </script>
-    
+        </script>
+    </div>
 </body>
 
 </html>

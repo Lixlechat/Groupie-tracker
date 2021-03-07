@@ -1,15 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=RocknRoll+One&display=swap');
 
-html{
-  max-width:1080px;
+/* HEADER */
+
+#logo {
+    width: 277px;
+    height: 155.5px;
 }
+
 header {
     position: relative;
     top: 0;
     left: 0;
     width: 100%;
     padding: 1vw;
-    background:rgba(0, 0, 0, 0.801);
+    background: rgba(0, 0, 0, 0.801);
     box-shadow: 0 0 1.5vw rgb(26, 25, 25);
     display: flex;
     flex-wrap: wrap;
@@ -19,127 +23,425 @@ header {
     align-items: center;
 }
 
+header a {
+    text-decoration: none;
+    /*Pour que le lien ne soit plus "souligné"...*/
+    color: white;
+}
+
 header form {
-  position: relative; top: 20px; left: 8em;
-  color: white;
+    position: relative;
+    top: 20px;
+    left: 8em;
+    color: white;
 }
 
 header nav {
-    width: 80%;
+    width: 30%;
     display: flex;
     flex-wrap: wrap;
     font-family: 'RocknRoll One', sans-serif;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
-    font-size: 1.3vw;
+    font-size: 1.4vw;
+    margin-left: 5%;
+    text-align: center;
+    font-weight: bold;
+}
+
+header nav:hover {
+    color: white;
+}
+
+
+/* SEARCH BAR */
+
+
+/*design bouton*/
+
+.searchButton {
+    width: 40px;
+    height: 36px;
+    border: 1px solid white;
+    background: black;
+    text-align: center;
+    color: white;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+
+/* positionnement du bouton */
+
+.search {
+    width: 100%;
+    position: relative;
+    display: flex;
+}
+
+
+/* contour cadre */
+
+.searchTerm {
+    width: 100%;
+    border: 3px solid white;
+    border-right: none;
+    padding: 5px;
+    height: 20px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: black;
+}
+
+
+/* couleur écriture recherche */
+
+.searchTerm:focus {
+    color: black;
+}
+
+
+/*position et dimension du cadre*/
+
+.search-container {
+    width: 30%;
+    position: absolute;
+    top: 65%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+}
+
+
+/* icon bouton recherche */
+
+.loupe {
+    width: 30px;
+    position: relative;
+    left: -13%;
+    top: 4%;
+}
+
+
+/* BODY */
+
+.top {
+    position: fixed;
 }
 
 body {
-   background-color: black;
-   font-family: 'RocknRoll One', sans-serif;
-   display: flex;
-   flex-wrap: wrap;
-   margin: 0;
-   padding:0;
-   overflow-x: hidden;
-   align-items: center;
-   background-image: url('data:image/svg+xml,%3Csvg width="42" height="44" viewBox="0 0 42 44" xmlns="http://www.w3.org/2000/svg"%3E%3Cg id="Page-1" fill="none" fill-rule="evenodd"%3E%3Cg id="brick-wall" fill="%239C92AC" fill-opacity="0.4"%3E%3Cpath d="M0 0h42v44H0V0zm1 1h40v20H1V1zM0 23h20v20H0V23zm22 0h20v20H22V23z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
-}
-
-img{
-width: 200px;
-height: 200px;
-border-style: inset;
-border-color: grey;
-margin: 25px;
-cursor: pointer;
-border-width: 10px;
+    background-color: black;
+    font-family: 'RocknRoll One', sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    align-items: center;
+    background-image: url('data:image/svg+xml,%3Csvg width="42" height="44" viewBox="0 0 42 44" xmlns="http://www.w3.org/2000/svg"%3E%3Cg id="Page-1" fill="none" fill-rule="evenodd"%3E%3Cg id="brick-wall" fill="%239C92AC" fill-opacity="0.4"%3E%3Cpath d="M0 0h42v44H0V0zm1 1h40v20H1V1zM0 23h20v20H0V23zm22 0h20v20H22V23z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
 }
 
 .zoom {
-  width: 300px;
-  height: 200px;
-  }
-  .image {
-  width: 200px;
-  height: 200px;
-  }
-  .image img {
-  /* La transition s'applique à la fois sur la largeur et la hauteur, avec une durée d'une seconde. */
-  -webkit-transition: all 1s ease; /* Safari et Chrome */
-  -moz-transition: all 1s ease; /* Firefox */
-  -ms-transition: all 1s ease; /* Internet Explorer 9 */
-  -o-transition: all 1s ease; /* Opera */
-  transition: all 1s ease;
-  }
-  .image:hover img {
-  /* L'image est grossie de 25% */
-  -webkit-transform:scale(1.25); /* Safari et Chrome */
-  -moz-transform:scale(1.25); /* Firefox */
-  -ms-transform:scale(1.25); /* Internet Explorer 9 */
-  -o-transform:scale(1.25); /* Opera */
-  transform:scale(1.25);
-  }
-
-div{
-  height: 100px;
-  display: inline-block;
-  width: 15%;
-  padding: 0;
-  margin: 0;
+    width: 300px;
+    height: 200px;
 }
 
-.top{
-  position:fixed;
-}
-.neons {
-   text-align: center;
-   display: block;
-   width: 70%;
-   position: relative; bottom: -1em; left: 5em;
-  }
-
-.neons .neonitem {
-  font-size: 1.8rem;
-  text-align: center;
-   font-weight: bold;
-   text-decoration: none;
-  color: white;
-  padding: 3%;
-   width: 20vw;
-  -webkit-animation: glow 2s ease-in-out infinite alternate;
-  -moz-animation: glow 2s ease-in-out infinite alternate;
-  animation: glow 2s ease-in-out infinite alternate;
+.image {
+    margin-top: 12.5%;
+    margin-left: 30%;
+    width: 240px;
+    height: 240px;
+    cursor: pointer;
+    border: 10px solid;
+    border-image: url('/paul/bois.jpg/')10;
+    -webkit-transition: all 1s ease;
+    /* Safari et Chrome */
+    -moz-transition: all 1s ease;
+    /* Firefox */
+    -ms-transition: all 1s ease;
+    /* Internet Explorer 9 */
+    -o-transition: all 1s ease;
+    /* Opera */
+    transition: all 1s ease;
 }
 
-a#cRetour{
-  border-radius:3px;
-  padding:10px;
-  font-size:15px;
-  text-align:center;
-  color:#fff;
-  background:rgba(0, 0, 0, 0.25);
-  position:fixed;
-  right:20px;
-  opacity:1;
-  z-index:99999;
-  transition:all ease-in 0.2s;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  text-decoration: none;
-}
-a#cRetour:before{ content: "\25b2"; }
-a#cRetour:hover{
-  background:rgba(0, 0, 0, 1);
-  transition:all ease-in 0.2s;
-}
-a#cRetour.cInvisible{
-  bottom:-35px;
-  opacity:0;
-  transition:all ease-in 0.5s;
+.image:hover {
+    /* L'image est grossie de 25% */
+    -webkit-transform: scale(1.25);
+    /* Safari et Chrome */
+    -moz-transform: scale(1.25);
+    /* Firefox */
+    -ms-transform: scale(1.25);
+    /* Internet Explorer 9 */
+    -o-transform: scale(1.25);
+    /* Opera */
+    transform: scale(1.25);
 }
 
-a#cRetour.cVisible{
-  bottom:20px;
-  opacity:1;
+div {
+    height: 100px;
+    display: inline-block;
+    width: 15%;
+    padding: 0;
+    margin: 0;
 }
+
+a#cRetour {
+    border-radius: 3px;
+    padding: 10px;
+    font-size: 15px;
+    text-align: center;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.25);
+    position: fixed;
+    right: 20px;
+    opacity: 1;
+    z-index: 99999;
+    transition: all ease-in 0.2s;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    text-decoration: none;
+}
+
+a#cRetour:before {
+    content: "\25b2";
+}
+
+a#cRetour:hover {
+    background: rgba(0, 0, 0, 1);
+    transition: all ease-in 0.2s;
+}
+
+a#cRetour.cInvisible {
+    bottom: -35px;
+    opacity: 0;
+    transition: all ease-in 0.5s;
+}
+
+a#cRetour.cVisible {
+    bottom: 20px;
+    opacity: 1;
+}
+
+
+/* FOOTER */
+
+footer {
+    position: relative;
+    margin-top: 30px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    padding: 1vw;
+    background: rgba(0, 0, 0, 0.95);
+    box-shadow: 0 0 1.5vw rgb(26, 25, 25);
+    font-family: 'RocknRoll One', sans-serif;
+    border: 10px compact black;
+    align-items: center;
+}
+
+.img-footer {
+    position: relative;
+    width: 184.67px;
+    height: 111.66;
+    margin-left: 45%;
+    margin-right: 50%;
+}
+
+html {
+    font-family: sans-serif;
+}
+
+form {
+    width: 600px;
+    margin: 0 auto;
+}
+
+div {
+    margin-bottom: 10px;
+}
+
+fieldset {
+    background: rgb(255, 255, 255);
+    border: 5px solid rgb(170, 8, 62);
+}
+
+legend {
+    padding: 10px;
+    background: rgb(1, 1, 8);
+    color: rgb(255, 255, 255);
+}
+
+#otherValue {
+    display: none;
+}
+
+#other:checked~#otherValue {
+    display: inline-block;
+}
+
+
+/* The sidebar menu */
+
+.sidebar {
+    height: 100%;
+    /* 100% Full-height */
+    width: 0;
+    /* 0 width - change this with JavaScript */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: #111;
+    /* Black*/
+    overflow-x: hidden;
+    /* Disable horizontal scroll */
+    padding-top: 60px;
+    /* Place content 60px from the top */
+    transition: 0.5s;
+    /* 0.5 second transition effect to slide in the sidebar */
+}
+
+
+/* The sidebar links */
+
+.sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+
+/* When you mouse over the navigation links, change their color */
+
+.sidebar a:hover {
+    color: #f1f1f1;
+}
+
+
+/* Position and style the close button (top right corner) */
+
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+
+/* The button used to open the sidebar */
+
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #111;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+}
+
+.openbtn:hover {
+    background-color: #444;
+}
+
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+
+#main {
+    transition: margin-left .5s;
+    /* If you want a transition effect */
+    padding: 20px;
+}
+
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+
+@media screen and (max-height: 450px) {
+    .sidebar {
+        padding-top: 15px;
+    }
+    .sidebar a {
+        font-size: 18px;
+    }
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 70%;
+    height: 25px;
+    background: white;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    border: 1px solid rgb(255, 255, 255);
+}
+
+ /* The container must be positioned relative: */
+.custom-select {
+  position: relative;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.custom-select select {
+  display: none; /*hide original SELECT element: */
+}
+
+.select-selected {
+  background-color: DodgerBlue;
+}
+
+/* Style the arrow inside the select element: */
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+
+/* Point the arrow upwards when the select box is open (active): */
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}
+
+/* style the items (options), including the selected item: */
+.select-items div,.select-selected {
+  color: #ffffff;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+}
+
+/* Style items (options): */
+.select-items {
+  position: absolute;
+  background-color: DodgerBlue;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+/* Hide the items when the select box is closed: */
+.select-hide {
+  display: none;
+}
+
+.select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+} 
+
+.bouton1 {background-color: #008CBA ;}

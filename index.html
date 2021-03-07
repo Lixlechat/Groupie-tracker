@@ -1,132 +1,183 @@
-<!DOCTYPE html>
+<!DOCTYPE html>:
 <html lang="fr">
 
 <head>
-  <title>Groupie Tracker</title>
-  <link rel="stylesheet" href="/paul/styleex.css">
-  <script  src="paul/main.js"></script>
+    <title>Groupie Tracker</title>
+    <link rel="stylesheet" href="/paul/styleex.css">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <script src="paul/main.js"></script>
 </head>
+
 <a id="haut"></a>
+
 <header>
+    <img id="logo" src="/paul/logo.png/" />
 
-
-  <!-- Menu de navigation du site -->
-  <nav class="navbar">
-    <div class="neons">
-      <a href="index.html" class="neonitem">Accueil</a>
-      <a href="#programme" class="neonitem">les Concerts</a>
-      <a href="https://d2qr63i3uw2hd1.cloudfront.net/photos/slide/540/ratatouille.png" class="neonitem">Bouton swag</a>
-      <a href="/contact/" class="neonitem">Contact</a>
+    <div id="main">
+        <button style="margin-left:-40px; margin-top: 100px" class="openbtn" onclick="openNav()">&#9776; Filtres!</button>
     </div>
-  </nav>
+    <!-- search-bar -->
+    <div class="form-search">
+        <div class="search-container">
+            <div class="search">
+                <input onsubmit="event.preventDefault();" name="search__input" class="searchTerm" id="search" type="text" list="searchs" placeholder="recherche..." autofocus requiered />
+                <button class="searchButton" onclick="barrederecherche();" type="button">
+            <img class="loupe" src="/paul/loupe.png/">
+          </button>
+            </div>
+        </div>
 
-</header>
-
-<body>
-  <div class="form-search">
-    <input onsubmit="event.preventDefault();" name="search" class="design-search" id="search" type="text" list="searchs"
-      placeholder="recherche..." autofocus requiered />
-    <datalist id="searchs" name="searchs">
-
-      {{$DT := .Data}}
-      {{range $ID,$v := $DT.Artist}}
-      <option data-id="{{(index $DT.Artist $ID).Id}}" value="{{(index $DT.Artist $ID).Name}} | Artiste-Group ">
+        <datalist id="searchs" name="searchs">
+        {{$DT := .Data}}
+        {{range $ID,$v := $DT.Artist}}
+        <option data-id="{{(index $DT.Artist $ID).Id}}" value="{{(index $DT.Artist $ID).Name}} | Artiste-Group ">
 
         {{range (index $DT.Artist $ID).Members }}
-      <option data-id="{{(index $DT.Artist $ID).Id}}" value="{{.}}"></option>
-      {{end}}
-      <option data-id="{{(index $DT.Artist $ID).Id}}" value="{{(index $DT.Artist $ID).FirstAlbum}} "></option>
-      <option data-id="{{(index $DT.Artist $ID).Id}}" value="{{(index $DT.Artist $ID).CreationDate}} "></option>
-      {{end}}
+        <option data-id="{{(index $DT.Artist $ID).Id}}" value="{{.}}"></option>
+        {{end}}
 
-      {{range $ID,$v := $DT.Location.Index}}
-      {{range (index $DT.Location.Index $ID).Location}}
-      <option data-id="{{(index $DT.Artist $ID).Id}}" value="{{.}} "></option>
-      {{end}}
-      {{end}}
+        <option data-id="{{(index $DT.Artist $ID).Id}}" value="{{(index $DT.Artist $ID).FirstAlbum}} "></option>
+        <option data-id="{{(index $DT.Artist $ID).Id}}" value="{{(index $DT.Artist $ID).CreationDate}} "></option>
+        {{end}}
 
-      {{range $ID,$v := $DT.Location.Index}}
-      {{range (index $DT.Location.Index $ID).Location}}
-      <option data-id="{{(index $DT.Artist $ID).Id}}" value="{{.}} "></option>
-      {{end}}
-      {{end}}
-    </datalist>
-
-    <button class="button" onclick="barrederecherche();" type="button">ALLEZZZZZZ!</button>
-  </div>
-  {{$api:=.Data}}
-  {{range $ID,$v := $api.Artist}}
-  <a href="/artist/{{(index $api.Artist $ID).Id}}">
-
-    <div class=zoom>
-      <div class=image>
-        <img src="{{(index $api.Artist $ID).Image}}" alt="" />
-      </div>
+        {{range $ID,$v := $DT.Location.Index}}
+        {{range (index $DT.Location.Index $ID).Location}}
+        <option data-id="{{(index $DT.Artist $ID).Id}}" value="{{.}} "></option>
+        {{end}}
+        {{end}}
+      </datalist>
     </div>
 
-  </a>
-  {{end}}
-  <div><a id="cRetour" class="cInvisible" href="#haut"></a></div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      window.onscroll = function (ev) {
-        document.getElementById("cRetour").className = (window.pageYOffset > 100) ? "cVisible" : "cInvisible";
-      };
-    });
-  </script>
 
-  <script>
-    // Par Oznog, trucsweg.com
-    // http://trucsweb.com/tutoriels/javascript/defilement_doux
-    document.addEventListener('DOMContentLoaded', function () {
-      var aLiens = document.querySelectorAll('a[href*="#"]');
-      for (var i = 0, len = aLiens.length; i < len; i++) {
-        aLiens[i].onclick = function () {
-          if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-            var target = this.getAttribute("href").slice(1);
-            if (target.length) {
-              scrollTo(document.getElementById(target).offsetTop, 750);
-              return false;
+    </div>
+    <!-- Menu de navigation du site -->
+    <nav class="navbar">
+        <a href="index.html">Accueil</a>
+        <a href="https://d2qr63i3uw2hd1.cloudfront.net/photos/slide/540/ratatouille.png">Bouton-swag</a>
+        <a href="/contact/">Contact</a>
+    </nav>
+</header>
+
+<!----------------------------------------------------->
+
+<body>
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <form style="display: flex;flex-direction: column;color: rgb(211, 25, 25); width: 76px; margin-left: 40px;" method="POST">
+            Location
+            <div>
+                <select class="custom-select" style="width:200px;" type="text" name="Location">
+                  <option value="">Sans filtre</option>
+          {{range .FiltreLocation}}
+          <option value={{.}}>{{.}}</option>
+          {{end}}
+        </select>
+            </div>
+            Date de création
+            <div>
+                <select class="custom-select" style="width:200px;" type="text" name="Creationdate">
+          <option value="">Sans filtre</option>
+          {{range .FiltreCreation}}
+          <option value={{.}}>{{.}}</option>
+          {{end}}
+        </select>
+            </div>
+            <div style="color:rgb(211, 25, 25)">
+                <option value="">Membres</option>
+                <input type="range" name="Nombredemembre" value="0" min="0" max="8" oninput="this.nextElementSibling.value = this.value">
+                <output style="color:aliceblue">0</output><br><br>
+            </div>
+            Date d'album
+            <div>
+                <select class="custom-select" style="width:200px;" type="text" name="Albumdate">
+          <option value="">Sans filtre</option>
+          {{range .FiltreAlbum}}
+          <option value={{.}}>{{.}}</option>
+          {{end}}
+        </select>
+            </div>
+            <button>Envoyer</button>
+        </form>
+    </div>
+    {{$api:=.Data}} {{range $ID,$v := $api.Artist}}
+    <a href="/artist/{{(index $api.Artist $ID).Id}}">
+        <div class=zoom>
+            <div class=image>
+                <img src="{{(index $api.Artist $ID).Image}}" alt="" title="{{.Name}}" />
+            </div>
+        </div>
+    </a>
+    {{end}}
+    <div>
+        <a id="cRetour" class="cInvisible" href="#haut"></a>
+    </div>
+
+    <!-- SCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            window.onscroll = function(ev) {
+                document.getElementById("cRetour").className = (window.pageYOffset > 100) ? "cVisible" : "cInvisible";
+            };
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var aLiens = document.querySelectorAll('a[href*="#"]');
+            for (var i = 0, len = aLiens.length; i < len; i++) {
+                aLiens[i].onclick = function() {
+                    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                        var target = this.getAttribute("href").slice(1);
+                        if (target.length) {
+                            scrollTo(document.getElementById(target).offsetTop, 750);
+                            return false;
+                        }
+                    }
+                };
             }
-          }
-        };
-      }
-    });
-    //Exemple de : Forestrf
-    // http://jsfiddle.net/forestrf/tPQSv/2/
-    function scrollTo(element, duration) {
-      var e = document.documentElement;
-      if (e.scrollTop === 0) {
-        var t = e.scrollTop;
-        ++e.scrollTop;
-        e = t + 1 === e.scrollTop-- ? e : document.body;
-      }
-      scrollToC(e, e.scrollTop, element, duration);
-    }
+        });
 
-    function scrollToC(element, from, to, duration) {
-      if (duration < 0) return;
-      if (typeof from === "object") from = from.offsetTop;
-      if (typeof to === "object") to = to.offsetTop;
-      scrollToX(element, from, to, 0, 1 / duration, 20, easeOutCuaic);
-    }
+        function scrollTo(element, duration) {
+            var e = document.documentElement;
+            if (e.scrollTop === 0) {
+                var t = e.scrollTop;
+                ++e.scrollTop;
+                e = t + 1 === e.scrollTop-- ? e : document.body;
+            }
+            scrollToC(e, e.scrollTop, element, duration);
+        }
 
-    function scrollToX(element, x1, x2, t, v, step, operacion) {
-      if (t < 0 || t > 1 || v <= 0) return;
-      element.scrollTop = x1 - (x1 - x2) * operacion(t);
-      t += v * step;
-      setTimeout(function () {
-        scrollToX(element, x1, x2, t, v, step, operacion);
-      }, step);
-    }
+        function scrollToC(element, from, to, duration) {
+            if (duration < 0) return;
+            if (typeof from === "object") from = from.offsetTop;
+            if (typeof to === "object") to = to.offsetTop;
+            scrollToX(element, from, to, 0, 1 / duration, 20, easeOutCuaic);
+        }
 
-    function easeOutCuaic(t) {
-      t--;
-      return t * t * t + 1;
-    }
-  </script>
-  
+        function scrollToX(element, x1, x2, t, v, step, operacion) {
+            if (t < 0 || t > 1 || v <= 0) return;
+            element.scrollTop = x1 - (x1 - x2) * operacion(t);
+            t += v * step;
+            setTimeout(function() {
+                scrollToX(element, x1, x2, t, v, step, operacion);
+            }, step);
+        }
+
+        function easeOutCuaic(t) {
+            t--;
+            return t * t * t + 1;
+        }
+    </script>
+
+
 </body>
+
+<!----------------------------------------------------->
+
+<footer>
+    <img class="img-footer" src="/paul/logo.png/">
+</footer>
 
 </html>
