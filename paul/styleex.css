@@ -444,4 +444,12 @@ legend {
   background-color: rgba(0, 0, 0, 0.1);
 } 
 
-.bouton1 {background-color: #008CBA ;}
+.bouton1 {
+    
+    transition-duration: 0.4s;
+  }
+  
+  .bouton1:hover {
+    background-color: #a51c1c; /* Green */
+    color: white;
+  }
